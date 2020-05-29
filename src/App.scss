@@ -1,0 +1,10 @@
+.page {
+    max-height: 100vh;
+    width: 100vw;
+    position: absolute;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+}
