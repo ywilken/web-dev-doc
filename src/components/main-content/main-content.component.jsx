@@ -3,52 +3,61 @@ import Markdown from 'markdown-to-jsx';
 import './main-content.styles.scss';
 import Prism from 'prismjs';
 import '../../prism.css';
-import test from '../../markdown.md';
 
 class MainContent extends React.Component {
-    constructor() {
-        super()
+    _isMounted = false;
+    
+    constructor(props) {
+        super(props)
+
+        console.log(`Constructor: ${this.props.title}`)
+
         this.state = {
-            markdown: ''
+            markdown: '',
         }
     }
-    componentDidMount() {
-        Prism.highlightAll();
 
+    updateMarkdown = async () => {
         // How to get the md-files
-        const contentPath = require('../../markdown.md');
-        fetch(contentPath)
+        const folderUrl = this.props.folder;
+        console.log(folderUrl)
+        const pathUrl = this.props.content;
+        const file = await import('../../content/'+folderUrl+'/'+pathUrl+'.md')
+        // Previous attempt: const contentPath = require(pathUrl);
+        await fetch(file.default)
         .then(response => {return response.text()})
         .then(text => {
-            this.setState({
-                markdown: text
-            })
+            if(this._isMounted) {
+                this.setState({
+                    markdown: text
+                })
+            }
         })
+    }
+
+    componentDidMount() {
+        this._isMounted = true;
+
+        Prism.highlightAll();
+
+        this.updateMarkdown();
     }
 
     componentDidUpdate() {
         Prism.highlightAll();
+
+        // this.updateMarkdown();
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
 
     render() {
-        console.log(this.state.markdown)
-        const {content, title} = this.props;
         Prism.highlightAll();
         return (
             <div className="main-content">
-                <h1>{title}</h1>
-
-                {content.map(({type, content, lang}) => {
-                    switch(type) {
-                        case 'p':
-                            return <p>{content}</p>;
-                        case 'h2':
-                            return <h2>{content}</h2>;
-                        case 'code':
-                            return <pre><code className={`language-${lang}`}>{content}</code></pre>;
-                    }
-                })}
                 <Markdown>
                     {this.state.markdown}
                 </Markdown>

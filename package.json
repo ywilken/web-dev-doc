@@ -46,7 +46,8 @@
           "languages": [
             "javascript",
             "css",
-            "html"
+            "html",
+            "jsx"
           ],
           "plugins": [
             "line-numbers",
