@@ -1,9 +1,25 @@
 .sidebar {
     height: 90vh;
     background: rgb(221, 221, 221);
-    color: darkslategray;
+    color: rgb(164, 172, 172);
     padding: 1em;
     width: 250px;
     z-index: 0;
     overflow-y: scroll;
+
+    ul{
+        list-style: none;
+        padding-left: 0;
+
+        a{
+            color: rgb(43, 75, 75);
+            text-decoration: none;
+            cursor: pointer;
+
+            &:focus, 
+            &:hover{
+                color: rgb(137, 150, 228);
+            }
+        }
+    }   
 }

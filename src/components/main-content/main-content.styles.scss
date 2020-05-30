@@ -1,11 +1,17 @@
 .main-content {
     width: 80%;
+    max-width: 800px;
     margin: 0 auto;
     line-height: 1.8;
     font-size: 1.2rem;
     text-align: justify;
 
     & h1 {
-        text-align: center;
+        text-align: left;
+    }
+
+    & h2 {
+        text-align: left;
+        color: rgb(87, 155, 233);
     }
 }

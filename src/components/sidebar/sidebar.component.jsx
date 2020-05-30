@@ -9,7 +9,7 @@ function Sidebar({data}) {
             <p>Sidebar</p>
             <ul>
                 {data.map(topic => {
-                    return <li><Link to={`${topic.url}`}>{topic.title}</Link></li>;
+                    return <li className="sidebar-btn"><Link to={`${topic.url}`}>{topic.title}</Link></li>;
                 })}
             </ul>
             
